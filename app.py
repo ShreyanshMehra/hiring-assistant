@@ -8,7 +8,7 @@ from prompts import SYSTEM_PROMPT, TECH_PROMPT_FIRST, TECH_PROMPT_FOLLOWUP
 load_dotenv()
 api_key = os.getenv("GEMINI_API_KEY")
 if not api_key:
-    st.error("⚠️ Please set GEMINI_API_KEY in your .env file")
+    st.error("Please set GEMINI_API_KEY in your .env file")
     st.stop()
 
 # Initialize bot in Streamlit session state
@@ -24,7 +24,7 @@ if "bot" not in st.session_state:
 
 st.set_page_config(page_title="TalentScout - Hiring Assistant", page_icon="🤖")
 
-st.title("🤖 TalentScout - AI Hiring Assistant")
+st.title("TalentScout - AI Hiring Assistant")
 
 # Display initial bot message
 if st.session_state.start_msg and not st.session_state.history:
@@ -43,11 +43,11 @@ if prompt := st.chat_input("Type your response..."):
     st.chat_message("assistant").write(response)
     st.session_state.history.append(("assistant", response))
 
-# ✅ Check interview completion outside chat block
+# Check interview completion outside chat block
 if "last_response" in st.session_state and "Thank you for your time" in st.session_state.last_response:
-    st.success("✅ Interview complete! Candidate data has been saved.")
+    st.success("Interview complete! Candidate data has been saved.")
 
-    if st.button("🔄 Start Another Interview"):
+    if st.button("Start Another Interview"):
         st.session_state.bot = InterviewBot(
             SYSTEM_PROMPT,
             TECH_PROMPT_FIRST,
